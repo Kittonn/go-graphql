@@ -5,6 +5,7 @@ import (
 
 	"github.com/Kittonn/go-graphql/config"
 	"github.com/Kittonn/go-graphql/internal/app"
+	"github.com/Kittonn/go-graphql/pkg/database/postgres"
 	"github.com/Kittonn/go-graphql/pkg/database/redis"
 )
 
@@ -21,7 +22,12 @@ func main() {
 
 	defer redisClient.Client.Close()
 
-	app := app.NewApp(config)
+	postgresDB, err := postgres.NewPostgres(config)
+	if err != nil {
+		log.Fatalf("Failed to connect to postgresql: %v", err)
+	}
+
+	app := app.NewApp(config, redisClient, postgresDB)
 	if err := app.Run(); err != nil {
 		log.Fatalf("Server failed to run: %v", err)
 	}

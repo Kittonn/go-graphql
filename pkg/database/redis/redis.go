@@ -11,11 +11,11 @@ import (
 
 const ctxTimeOut = 10
 
-type redisManager struct {
+type RedisManager struct {
 	Client *redis.Client
 }
 
-func NewRedisClient(config *config.Config) (*redisManager, error) {
+func NewRedisClient(config *config.Config) (*RedisManager, error) {
 	addr := fmt.Sprintf("%v:%v", config.RedisHost, config.RedisPort)
 
 	client := redis.NewClient(&redis.Options{
@@ -31,7 +31,7 @@ func NewRedisClient(config *config.Config) (*redisManager, error) {
 		return nil, err
 	}
 
-	return &redisManager{
+	return &RedisManager{
 		Client: client,
 	}, nil
 }

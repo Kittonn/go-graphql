@@ -9,18 +9,24 @@ import (
 	"time"
 
 	"github.com/Kittonn/go-graphql/config"
+	"github.com/Kittonn/go-graphql/pkg/database/postgres"
+	"github.com/Kittonn/go-graphql/pkg/database/redis"
 	"github.com/labstack/echo/v4"
 )
 
 type app struct {
-	echo   *echo.Echo
-	config *config.Config
+	echo        *echo.Echo
+	config      *config.Config
+	redisClient *redis.RedisManager
+	postgresDB  *postgres.Postgres
 }
 
-func NewApp(config *config.Config) *app {
+func NewApp(config *config.Config, redisClient *redis.RedisManager, postgresDB *postgres.Postgres) *app {
 	return &app{
-		echo:   echo.New(),
-		config: config,
+		echo:        echo.New(),
+		config:      config,
+		redisClient: redisClient,
+		postgresDB:  postgresDB,
 	}
 }
 
