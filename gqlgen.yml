@@ -5,7 +5,7 @@ schema:
 # Where should the generated server code go?
 exec:
   filename: internal/graph/generated/generated.go
-  package: graph
+  package: generated
   # Optional: Maximum number of goroutines in concurrency to use per child resolvers(default: unlimited)
   # worker_limit: 1000
 
